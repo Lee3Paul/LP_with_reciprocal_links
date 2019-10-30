@@ -1,4 +1,4 @@
-function [auc,pre,rs,roc,sim] = IRW_Bifan(train,test,recip,recip_alpha,L,metrics)
+function [auc,pre,rs,roc,sim] = IRW_Bifan(train,test,recip,L,metrics)
     %Potential Theory
     %%%%%
     temp = train'./repmat(sum(train,2),[1,size(train,1)]);

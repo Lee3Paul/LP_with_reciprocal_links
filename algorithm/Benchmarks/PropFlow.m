@@ -2,7 +2,6 @@ function [ auc,pre,rs,roc,sim] = PropFlow( train, test,l,L,metrics )
     % PropFlow index
     A = train;
     [xindex,yindex] = find(A);linklist = [xindex,yindex];
-    Graph = ObjectCreateGraph(linklist);
     Nodenum = size(A,1);
     NodeIDs = 1:size(A,2);
     Score = zeros(size(A,1),size(A,2));
