@@ -5,4 +5,4 @@ See the manuscript for more details of the algorithms. NOTICE that:
 2) RUN "./analysis/Calc_Zscore.m" to calculate the Z-scores of original network and null models. The null models are generated maintaining the number of reciprocal links, as described in our manuscript. 
 3) All datasets we use for empirical test and validation are downloaded from "http://konect.uni-koblenz.de/networks/".
 
-The codes are also uploaded to CodeOcean for reproducible validation, with the provisional DOI: 10.24433/CO.3576288.v1.
+The codes are also uploaded to CodeOcean for reproducible validation, with the provisional DOI: 10.24433/CO.3576288.v1
