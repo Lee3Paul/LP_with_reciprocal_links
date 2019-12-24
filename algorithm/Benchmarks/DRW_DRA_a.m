@@ -1,16 +1,14 @@
-function [auc,pre,rs,roc,sim] = IRW_DRA(train,test,recip,L,metrics)
+function [auc,pre,rs,roc,sim] = DRW_DRA_a(train,test,recip,L,metrics)
     %DRA index
     %%%%%
     A = train;
     degree_out = repmat((sum(A,2)),[1,size(A,1)]);
     degree_in = repmat((sum(A,1)),[size(A,1),1]);
-    temp = recip*A'./(degree_out);
+    degree_out = degree_out + degree_in';
+    temp = ((A+recip*A'./(degree_out+1))./repmat((sum(A,2)),[1,size(A,1)]));
     temp(isnan(temp)) = 0; temp(isinf(temp)) = 0;  
-    W = A+temp; 
-    
-    temp = W./repmat(sum(A,2),[1,size(A,1)]);
-    temp(isnan(temp)) = 0; temp(isinf(temp)) = 0;  
-    sim = W*temp;
+    sim = (A+recip*A'./(degree_out+1))*temp;
+    sim = sim + recip*sim';
     %%%%%
     auc = [];pre = [];rs = [];roc = [];
     if metrics.isAUC auc = CalcAUC_directed(train,test,sim, 10000,1);end

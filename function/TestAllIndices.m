@@ -3,6 +3,7 @@ function [allMetricValue,selected_indices] = TestAllIndices(train,test,L,ExpSetu
     %运行所有的index一次，计算相应评价指标
     metrics = ExpSetup.Metrics;
     selected_indices = {'DCN','DAA','DRA','Bifan','Jaccard','Salton','Sorenson','LHN','HPI','HDI','LP','PropFlow'};
+    selected_indices = {'DAA','DAA_a','DAA_m','DRA','DRA_a','DRA_m'};
     Nindices = length(selected_indices);
     allMetricValue = zeros(2*length(L)+1,Nindices);
     
@@ -23,24 +24,69 @@ function [allMetricValue,selected_indices] = TestAllIndices(train,test,L,ExpSetu
     if cell2mat(strfind(selected_indices,'DAA')) fprintf('DAA...');%Directed AA
     [tempauc,temppre,temprs,temproc,~] = DAA( train, test,L,metrics);index_cnt = index_cnt + 1;
     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
-    [tempauc,temppre,temprs,temproc,~] = RC_AA( train, test,L,metrics);index_cnt = index_cnt + 1;
-    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+%     [tempauc,temppre,temprs,temproc,~] = RC_AA( train, test,L,metrics);index_cnt = index_cnt + 1;
+%     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
     [tempauc,temppre,temprs,temproc,~] = IRW_DAA( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
     [tempauc,temppre,temprs,temproc,~] = DRW_DAA( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    end
+  
+    if cell2mat(strfind(selected_indices,'DAA_a')) fprintf('DAA_a...');%Directed AA
+    [tempauc,temppre,temprs,temproc,~] = DAA_a( train, test,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+%     [tempauc,temppre,temprs,temproc,~] = RC_AA( train, test,L,metrics);index_cnt = index_cnt + 1;
+%     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    [tempauc,temppre,temprs,temproc,~] = IRW_DAA_a( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    [tempauc,temppre,temprs,temproc,~] = DRW_DAA_a( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    end
+    
+    if cell2mat(strfind(selected_indices,'DAA_m')) fprintf('DAA_m...');%Directed AA
+    [tempauc,temppre,temprs,temproc,~] = DAA_m( train, test,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+%     [tempauc,temppre,temprs,temproc,~] = RC_AA( train, test,L,metrics);index_cnt = index_cnt + 1;
+%     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    [tempauc,temppre,temprs,temproc,~] = IRW_DAA_m( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    [tempauc,temppre,temprs,temproc,~] = DRW_DAA_m( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
     end
     
     if cell2mat(strfind(selected_indices,'DRA')) fprintf('DRA...');%Directed RA
     [tempauc,temppre,temprs,temproc,~] = DRA( train, test,L,metrics);index_cnt = index_cnt + 1;
     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
-    [tempauc,temppre,temprs,temproc,~] = RC_RA( train, test,L,metrics);index_cnt = index_cnt + 1;
-    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+%     [tempauc,temppre,temprs,temproc,~] = RC_RA( train, test,L,metrics);index_cnt = index_cnt + 1;
+%     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
     [tempauc,temppre,temprs,temproc,~] = IRW_DRA( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
     [tempauc,temppre,temprs,temproc,~] = DRW_DRA( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
     end
+    
+    
+    if cell2mat(strfind(selected_indices,'DRA_a')) fprintf('DRA_a...');%Directed RA
+    [tempauc,temppre,temprs,temproc,~] = DRA_a( train, test,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+%     [tempauc,temppre,temprs,temproc,~] = RC_RA( train, test,L,metrics);index_cnt = index_cnt + 1;
+%     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    [tempauc,temppre,temprs,temproc,~] = IRW_DRA_a( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    [tempauc,temppre,temprs,temproc,~] = DRW_DRA_a( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    end  
+    
+    if cell2mat(strfind(selected_indices,'DRA_m')) fprintf('DRA_m...');%Directed RA
+    [tempauc,temppre,temprs,temproc,~] = DRA_m( train, test,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+%     [tempauc,temppre,temprs,temproc,~] = RC_RA( train, test,L,metrics);index_cnt = index_cnt + 1;
+%     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    [tempauc,temppre,temprs,temproc,~] = IRW_DRA_m( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    [tempauc,temppre,temprs,temproc,~] = DRW_DRA_m( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
+    allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
+    end  
     
     if cell2mat(strfind(selected_indices,'Bifan')) fprintf('Bifan...');%Bi-fan predictor
     [tempauc,temppre,temprs,temproc,~] = Potential( train, test,5,L,metrics);index_cnt = index_cnt + 1;
@@ -52,6 +98,7 @@ function [allMetricValue,selected_indices] = TestAllIndices(train,test,L,ExpSetu
     [tempauc,temppre,temprs,temproc,~] = DRW_Bifan( train, test,recip,L,metrics);index_cnt = index_cnt + 1;
     allMetricValue(:,index_cnt) = [tempauc;temppre';temprs'];
     end
+    
     
     if cell2mat(strfind(selected_indices,'LNB')) fprintf('LNB...');%Bi-fan predictor
     [tempauc,temppre,temprs,temproc,~] = LNBCN( train, test,L,metrics);index_cnt = index_cnt + 1;

@@ -1,10 +1,10 @@
-function [auc,pre,rs,roc,sim] = DRA(train,test,L,metrics)
-    %DRA index
+function [auc,pre,rs,roc,sim] = DAA_a(train,test,L,metrics)
+    %DAA index
     A = train;
-    k_out = repmat((sum(A,2)),[1,size(A,1)]);
-    k_in = repmat((sum(A,1)),[size(A,1),1]);
+    k_out = repmat(log(sum(A,2)),[1,size(A,1)]);
+    k_in = repmat(log(sum(A,1)),[size(A,1),1]);
     %%%%%
-    temp = A ./ (k_out); 
+    temp = A ./ (k_out+k_in'); 
     % 计算每个节点的权重，1/log(k_i),网络规模过大时需要分块处理
     temp(isnan(temp)) = 0; temp(isinf(temp)) = 0;  
     % 将除数为0得到的异常值置为0

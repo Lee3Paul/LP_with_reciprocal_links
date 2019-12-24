@@ -1,10 +1,10 @@
-function [auc,pre,rs,roc,sim] = IRW_DRA(train,test,recip,L,metrics)
+function [auc,pre,rs,roc,sim] = IRW_DRA_m(train,test,recip,L,metrics)
     %DRA index
     %%%%%
     A = train;
     degree_out = repmat((sum(A,2)),[1,size(A,1)]);
     degree_in = repmat((sum(A,1)),[size(A,1),1]);
-    temp = recip*A'./(degree_out);
+    temp = recip*A'./(degree_out.*degree_in');
     temp(isnan(temp)) = 0; temp(isinf(temp)) = 0;  
     W = A+temp; 
     
